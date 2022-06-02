@@ -14,6 +14,6 @@ public class MiniMotelApp {
     public static void main(String[] args) {
         View mV = new View();
         
-        mV.View();
+        //mV.View();
     }
 }
