@@ -9,15 +9,11 @@ package assignment1;
  *
  * @author dorae
  */
-public class Assignment1New {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Menu menu = new MainMenu();
-        menu.runMenu();
-        
-    }
+public class MiniMotelApp {
     
+    public static void main(String[] args) {
+        View mV = new View();
+        
+        mV.View();
+    }
 }
