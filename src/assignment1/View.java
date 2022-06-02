@@ -5,12 +5,13 @@
  */
 package assignment1;
 
-import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import java.awt.*;
 import javax.swing.border.EmptyBorder;
+
+
 /**
  *
  * @author dorae
@@ -25,7 +26,8 @@ public class View extends JFrame implements ActionListener{
     private JPanel optionsPanel = new JPanel();
     private JPanel southPanel = new JPanel();
     
-    private JLabel homeLabel ;
+    private JLabel heading;
+    private JLabel homeLabel;
     private JLabel aboutLabel;
     private JLabel promptLabel;
     private JLabel faqLabel;
@@ -51,9 +53,16 @@ public class View extends JFrame implements ActionListener{
         this.setSize(1400, 800);
         this.setLocationRelativeTo(null);
         
-        //Center
+        //Header Panel
+        this.heading = new JLabel("Welcome to Mini Motel!");
+        heading.setFont(new Font("Magneto", Font.BOLD, 40));
+        heading.setForeground(Color.BLACK);
         
+        headerPanel.add(heading);
+        infoPanel.setBackground(Color.LIGHT_GRAY);
+        this.add(headerPanel, BorderLayout.NORTH); 
         
+        //Center Panel
         this.homeLabel = new JLabel("HomePage");
         homeLabel.setFont(new Font("Magneto", Font.BOLD, 40));
         homeLabel.setLocation(300, 300);
@@ -69,27 +78,16 @@ public class View extends JFrame implements ActionListener{
         promptLabel.setLocation(500, 500);
         promptLabel.setForeground(Color.WHITE);
         
+        BoxLayout boxLayout = new BoxLayout(homePanel, BoxLayout.Y_AXIS);
+        homePanel.setLayout(boxLayout);
+        homePanel.setBorder(new EmptyBorder(new Insets(40, 200, 30, 10)));
         homePanel.add(this.homeLabel);
-        homePanel.add(this.aboutLabel);
+        homePanel.add(this.aboutLabel);;
         homePanel.add(this.promptLabel);
         this.add(homePanel, BorderLayout.CENTER);
         
-        //Options panel
-        BoxLayout boxLayout = new BoxLayout(optionsPanel, BoxLayout.Y_AXIS);
-        optionsPanel.setLayout(boxLayout);
-        optionsPanel.setBorder(new EmptyBorder(new Insets(150, 10, 30, 10)));
-        optionsPanel.add(this.bookButton);
-        bookButton.addActionListener(this);
-        optionsPanel.add(Box.createRigidArea(new Dimension(10, 100)));
-        optionsPanel.add(this.viewButton);
-        viewButton.addActionListener(this);
-        optionsPanel.add(Box.createRigidArea(new Dimension(10, 100)));
-        optionsPanel.add(this.faqButton);
-        faqButton.addActionListener(this);
-        optionsPanel.add(Box.createRigidArea(new Dimension(10, 100)));
-        optionsPanel.setBackground(Color.LIGHT_GRAY);
-        this.add(optionsPanel, BorderLayout.WEST);
         
+       //Options panel
         this.bookButton = new JButton("Book");
         bookButton.setFont(new Font("Magneto", Font.PLAIN, 24));
         bookButton.setForeground(Color.BLACK);
@@ -102,18 +100,20 @@ public class View extends JFrame implements ActionListener{
         faqButton.setFont(new Font("Magneto", Font.PLAIN, 24));
         faqButton.setForeground(Color.BLACK);
         
-        //South Panel - Exit and Home button
-        FlowLayout fLayout = new FlowLayout();
-        fLayout.setAlignment(FlowLayout.RIGHT);
-        southPanel.setLayout(fLayout);
-        southPanel.setBorder(new EmptyBorder(new Insets(10, 10, 10, 10)));
-        southPanel.add(this.homeButton);
-        homeButton.addActionListener(this);
-        southPanel.add(this.exitButton);
-        exitButton.addActionListener(this);
-        southPanel.setBackground(Color.LIGHT_GRAY);
-        this.add(southPanel, BorderLayout.SOUTH);
+        BoxLayout boxLayout2 = new BoxLayout(optionsPanel, BoxLayout.Y_AXIS);
+        optionsPanel.setLayout(boxLayout2);
+        optionsPanel.setBorder(new EmptyBorder(new Insets(150, 10, 30, 10)));
+        optionsPanel.add(this.bookButton);
+        optionsPanel.add(Box.createRigidArea(new Dimension(10, 100)));
+        optionsPanel.add(this.viewButton);
+        optionsPanel.add(Box.createRigidArea(new Dimension(10, 100)));
+        optionsPanel.add(this.faqButton);
+        optionsPanel.add(Box.createRigidArea(new Dimension(10, 100)));
+        optionsPanel.setBackground(Color.LIGHT_GRAY);
+        this.add(optionsPanel, BorderLayout.WEST);
         
+       
+        //South Panel - Exit and Home button
         this.exitButton = new JButton("Exit");
         exitButton.setFont(new Font("Magneto", Font.PLAIN, 24));
         exitButton.setForeground(Color.BLACK);
@@ -122,11 +122,20 @@ public class View extends JFrame implements ActionListener{
         homeButton.setFont(new Font("Magneto", Font.PLAIN, 24));
         homeButton.setForeground(Color.BLACK);
         
-        this.setVisible(true);
+        FlowLayout fLayout = new FlowLayout();
+        fLayout.setAlignment(FlowLayout.RIGHT);
+        southPanel.setLayout(fLayout);
+        southPanel.setBorder(new EmptyBorder(new Insets(10, 10, 10, 10)));
+        southPanel.add(this.homeButton);
+        southPanel.add(this.exitButton);
+        southPanel.setBackground(Color.LIGHT_GRAY);
+        this.add(southPanel, BorderLayout.SOUTH);
 
+        this.setVisible(true);
     }
-    
-    public void createBooking() { 
+
+
+/**    public void createBooking() { 
         bookPanel.add(this.bookLabel);
         bookPanel.setBackground(Color.LIGHT_GRAY);
         bookPanel.setPreferredSize(new Dimension(1000,800));
@@ -136,11 +145,15 @@ public class View extends JFrame implements ActionListener{
         bookLabel.setLocation(150, 200);
         bookLabel.setForeground(Color.RED);  
         
+        this.getContentPane().removeAll();
         bookPanel.setVisible(true);
+        this.add(bookPanel);
+        this.revalidate();
+        this.repaint();
 
-    }
+    }**/
     
-    public void viewBooking(){
+/**   public void viewBooking(){
         infoPanel.add(this.viewLabel);
         infoPanel.setBackground(Color.LIGHT_GRAY);
         infoPanel.setPreferredSize(new Dimension(1000,800));
@@ -162,9 +175,9 @@ public class View extends JFrame implements ActionListener{
         vBookingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
         
         bookPanel.setVisible(true);
-    }
+    }**/
     
-    public void viewFaq(){
+/**    public void viewFaq(){
         
         Faq faq = new Faq();
         
@@ -187,8 +200,8 @@ public class View extends JFrame implements ActionListener{
         faqArea.setBounds(10,70, 1360,550);
         faqArea.setEditable(false);
         bookPanel.setVisible(true);
-    }
-    
+    }**/
+   
     public void addActionListener()
     {
         this.homeButton.addActionListener(this);
@@ -197,7 +210,7 @@ public class View extends JFrame implements ActionListener{
         this.faqButton.addActionListener(this);
         this.exitButton.addActionListener(this);
     }
-     
+
    @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.homeButton)
@@ -209,7 +222,7 @@ public class View extends JFrame implements ActionListener{
         {
             System.exit(0);  
         }
-        else
+       else
         {
             getContentPane().remove(homePanel); 
             getContentPane().remove(optionsPanel);
