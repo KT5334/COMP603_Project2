@@ -17,14 +17,15 @@ import javax.swing.border.EmptyBorder;
  * @author dorae
  */
 public class View extends JFrame implements ActionListener{
-    
+
     private JPanel headerPanel = new JPanel();
     private BGPanel homePanel = new BGPanel();
-    private JPanel faqPanel = new JPanel();
-    private JPanel infoPanel = new JPanel();
-    private JPanel bookPanel = new JPanel();
     private JPanel optionsPanel = new JPanel();
     private JPanel southPanel = new JPanel();
+    
+    private JPanel bookPanel = new JPanel();
+    private JPanel viewBookingPanel = new JPanel();
+    private JPanel faqPanel = new JPanel();
     
     private JLabel heading;
     private JLabel homeLabel;
@@ -58,31 +59,25 @@ public class View extends JFrame implements ActionListener{
         heading.setFont(new Font("Magneto", Font.BOLD, 40));
         heading.setForeground(Color.BLACK);
         
-        headerPanel.add(heading);
-        infoPanel.setBackground(Color.LIGHT_GRAY);
-        this.add(headerPanel, BorderLayout.NORTH); 
-        
-        //Center Panel
-        this.homeLabel = new JLabel("HomePage");
-        homeLabel.setFont(new Font("Magneto", Font.BOLD, 40));
-        homeLabel.setLocation(300, 300);
-        homeLabel.setForeground(Color.RED);
-        
         this.aboutLabel = new JLabel("Your number 1 overnight place of rest for the solo traveller!");
         aboutLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
         aboutLabel.setLocation(400, 400);
         aboutLabel.setForeground(Color.WHITE);
         
-        this.promptLabel = new JLabel("Please enter your selection:");
-        promptLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
-        promptLabel.setLocation(500, 500);
+        BoxLayout boxLayout = new BoxLayout(headerPanel, BoxLayout.Y_AXIS);
+        headerPanel.setLayout(boxLayout);
+        headerPanel.setBorder(new EmptyBorder(new Insets(40, 500, 30, 10)));
+        headerPanel.add(heading);
+        headerPanel.add(this.aboutLabel);;
+        headerPanel.setBackground(Color.LIGHT_GRAY);
+        this.add(headerPanel, BorderLayout.NORTH); 
+        
+        //Center panel
+        this.promptLabel = new JLabel("Please enter your selection on the left");
+        promptLabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
         promptLabel.setForeground(Color.WHITE);
         
-        BoxLayout boxLayout = new BoxLayout(homePanel, BoxLayout.Y_AXIS);
-        homePanel.setLayout(boxLayout);
-        homePanel.setBorder(new EmptyBorder(new Insets(40, 200, 30, 10)));
-        homePanel.add(this.homeLabel);
-        homePanel.add(this.aboutLabel);;
+        homePanel.add(Box.createRigidArea(new Dimension(50, 200)));
         homePanel.add(this.promptLabel);
         this.add(homePanel, BorderLayout.CENTER);
         
@@ -154,13 +149,13 @@ public class View extends JFrame implements ActionListener{
     }**/
     
 /**   public void viewBooking(){
-        infoPanel.add(this.viewLabel);
-        infoPanel.setBackground(Color.LIGHT_GRAY);
-        infoPanel.setPreferredSize(new Dimension(1000,800));
-        infoPanel.add(vBookingScroll);
-        infoPanel.setSize(1000,1000);  
-        //infoPanel.setLayout(null);  
-        infoPanel.setVisible(true);
+        viewBookingPanel.add(this.viewLabel);
+        viewBookingPanel.setBackground(Color.LIGHT_GRAY);
+        viewBookingPanel.setPreferredSize(new Dimension(1000,800));
+        viewBookingPanel.add(vBookingScroll);
+        viewBookingPanel.setSize(1000,1000);  
+        //viewBookingPanel.setLayout(null);  
+        viewBookingPanel.setVisible(true);
         
         this.viewLabel = new JLabel("View Booking");
         viewLabel.setFont(new Font("Magneto", Font.BOLD, 30));
@@ -174,7 +169,7 @@ public class View extends JFrame implements ActionListener{
         this.vBookingScroll = new JScrollPane(currentBookingArea);  
         vBookingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
         
-        bookPanel.setVisible(true);
+        viewBookingPanel.setVisible(true);
     }**/
     
 /**    public void viewFaq(){
@@ -233,7 +228,7 @@ public class View extends JFrame implements ActionListener{
              }
             else if(e.getSource() == this.viewButton)
             {
-                getContentPane().add(infoPanel);
+                getContentPane().add(viewBookingPanel);
             }
             else if(e.getSource() == this.bookButton)
             {
