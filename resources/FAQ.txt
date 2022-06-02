@@ -1,0 +1,21 @@
+
+- How many rooms can I book?
+We are a small motel catering to solo individuals so you can only book one room
+
+-how many guests can be in a room?
+The maximum capacity is 1 person per room
+
+- What size bed do the rooms have?
+All our rooms have 1 single sized bed.
+
+- Can I book for more than one night?
+Unfortunately the purpsoe of this motel is just a quick pit stop, so one night only.
+
+- Can I make multiple bookings?
+Yes, however you will have to go back to the create a booking menu to make each booking. 
+
+- How do I pay for the room?
+You will be asked to pay upfront when checking in.
+
+-For all other queries
+Please give us a call on 021021022. 
