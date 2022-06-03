@@ -16,13 +16,13 @@ import java.util.LinkedList;
 public class BookRoom{
     
     private String date;
-    //private Guest guest;
+
     private LinkedList <String> room;
     private LinkedHashMap <String, LinkedList<String>> bookedDates;
     
     public BookRoom (String date, LinkedList<String> room, LinkedHashMap <String, LinkedList<String>> bookedDates){
         this.date = date;
-        //this.guest = guest;
+
         this.room = room;
         this.bookedDates = bookedDates;
     }
