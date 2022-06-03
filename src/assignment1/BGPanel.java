@@ -18,7 +18,7 @@ public class BGPanel extends JPanel {
         public Image image;
 
     public BGPanel() {
-        this.image = new ImageIcon("./resources/bed2.png").getImage();
+        this.image = new ImageIcon("./resources/bed.png").getImage();
     }
 
     //background of this panel.
