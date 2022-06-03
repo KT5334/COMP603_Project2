@@ -22,8 +22,14 @@ public class View extends JFrame implements ActionListener{
     private BGPanel homePanel = new BGPanel();
     private JPanel optionsPanel = new JPanel();
     private JPanel southPanel = new JPanel();
+    
+    private JPanel headerBookPanel = new JPanel();
     private JPanel bookPanel = new JPanel();
+    
+    private JPanel headerViewPanel = new JPanel();
     private JPanel viewBookingPanel = new JPanel();
+    
+    private JPanel headerFaqPanel = new JPanel();
     private JPanel faqPanel = new JPanel(); 
     
     private JLabel heading;
@@ -134,28 +140,43 @@ public class View extends JFrame implements ActionListener{
 
 
     public void createBooking() { 
+        this.getContentPane().removeAll();
+        
+        //Booking Header
         this.bookLabel = new JLabel("Create a Booking");
         bookLabel.setFont(new Font("Magneto", Font.BOLD, 30));
-        bookLabel.setLocation(100, 100);
         bookLabel.setForeground(Color.RED);  
-        
-        bookPanel.add(this.bookLabel);
-        bookPanel.setBackground(Color.LIGHT_GRAY);
 
-        this.getContentPane().removeAll();
-        bookPanel.setVisible(true);
+        headerBookPanel.add(bookLabel);
+        headerBookPanel.setBackground(Color.LIGHT_GRAY);
+        this.add(headerBookPanel, BorderLayout.NORTH); 
+        
+        //Booking Center Panel
+        bookPanel.setBackground(Color.WHITE);
         this.add(bookPanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
         this.revalidate();
         this.repaint();
           
     }
     
     public void viewBooking(){
+        
+        this.getContentPane().removeAll();
+        
+        //View Booking Header
         this.viewLabel = new JLabel("View Booking");
         viewLabel.setFont(new Font("Magneto", Font.BOLD, 30));
-        viewLabel.setLocation(150, 200);
         viewLabel.setForeground(Color.RED);
         
+        headerViewPanel.add(viewLabel);
+        headerViewPanel.setBackground(Color.LIGHT_GRAY);
+        this.add(headerViewPanel, BorderLayout.NORTH); 
+        
+        //View Booking Panel
         this.currentBookingArea = new JTextArea();
         currentBookingArea.setBounds(1000,1000, 1360,580);
         currentBookingArea.setEditable(false);
@@ -163,37 +184,41 @@ public class View extends JFrame implements ActionListener{
         this.vBookingScroll = new JScrollPane(currentBookingArea);  
         vBookingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
         
-        viewBookingPanel.add(this.viewLabel);
         viewBookingPanel.add(vBookingScroll);
-        viewBookingPanel.setBackground(Color.LIGHT_GRAY);
-        viewBookingPanel.setPreferredSize(new Dimension(1000,800)); 
-        
-        this.getContentPane().removeAll();
+        viewBookingPanel.setBackground(Color.WHITE);
         this.add(viewBookingPanel, BorderLayout.CENTER);
-        viewBookingPanel.setVisible(true);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
         this.revalidate();
         this.repaint();
     }
     
     public void viewFaq(){
+        this.getContentPane().removeAll();
 
+        //FAQ Header
         this.faqLabel = new JLabel("Frequently Asked Questions");
         faqLabel.setFont(new Font("Magneto", Font.BOLD, 30));
-        faqLabel.setLocation(10, 0);
         faqLabel.setForeground(Color.RED);
         
+        headerFaqPanel.add(faqLabel);
+        headerFaqPanel.setBackground(Color.LIGHT_GRAY);
+        this.add(headerFaqPanel, BorderLayout.NORTH); 
+        
+        //FAQ Center Panel
         this.faqArea = new JTextArea();
         faqArea.setBounds(10,70, 1360,550);
         faqArea.setEditable(false);
         
-        faqPanel.add(this.faqLabel);
         faqPanel.add(faqArea);
-        faqPanel.setBackground(Color.LIGHT_GRAY);
-    //    faqPanel.setPreferredSize(new Dimension(1000,800));
-    //    faqPanel.setSize(1000,1000);  
-    //    faqPanel.setLayout(null);  
+        faqPanel.setBackground(Color.WHITE);
         this.add(faqPanel, BorderLayout.CENTER);
-        faqPanel.setVisible(true);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
         this.revalidate();
         this.repaint();
 
@@ -205,30 +230,26 @@ public class View extends JFrame implements ActionListener{
         if(e.getSource() == this.homeButton)
         {
             this.dispose();
-            new Frame();
+            new View();
         }
         else if(e.getSource() == this.exitButton)
         {
             System.exit(0);  
         }
-       else
+        else if(e.getSource() == this.faqButton)
         {
-            if(e.getSource() == this.faqButton)
-            {
-                this.viewFaq();
-            }
-            else if(e.getSource() == this.viewButton)
-            {
-                this.viewBooking();
-            }
-            else if(e.getSource() == this.bookButton)
-            {
-                this.createBooking();
-            } 
-            
-            revalidate();
-            repaint();
-        } 
+            this.viewFaq();
+        }
+        else if(e.getSource() == this.viewButton)
+        {
+            this.viewBooking();
+        }
+        else if(e.getSource() == this.bookButton)
+        {
+            this.createBooking();
+        }     
+        revalidate();
+        repaint();   
     }
 
 }
