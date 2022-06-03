@@ -1,62 +1,94 @@
 package assignment1;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Group 83
  */
-public class BookRoom{
-    
+public class BookRoom {
+
     private String date;
 
-    private LinkedList <String> room;
-    private LinkedHashMap <String, LinkedList<String>> bookedDates;
-    
-    public BookRoom (String date, LinkedList<String> room, LinkedHashMap <String, LinkedList<String>> bookedDates){
+    private LinkedList<Integer> availableRooms;
+
+    HotelDB db;
+    Statement statement;
+    Connection conn;
+
+    public BookRoom(String date) {
+        db = new HotelDB();
+        conn = db.getConnection();
+        try {
+            statement = conn.createStatement();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         this.date = date;
-
-        this.room = room;
-        this.bookedDates = bookedDates;
     }
-
-    
-    public void checkRoomAvailability(){
-        LinkedList <String> tempList = this.getRoom();
+    //checks the available rooms in the database
+    public void checkRoomAvailability() {
         
-        System.out.println("Available Rooms: ");
-   
-        for(String list: tempList){
-            System.out.println("Room "+ list);
+        String table = this.getDate();
+        
+        String findRooms = "SELECT ROOMNO FROM \"d" + table + "\" WHERE AVAILABLE = 'YES'";
+        
+        ResultSet rs;
+        //temporary LinkedList
+        LinkedList<Integer> tempList = new LinkedList<Integer>();
+        try {
+            rs = this.statement.executeQuery(findRooms);
+            while (rs.next()){
+                int temp1 = rs.getInt("ROOMNO");
+                
+                tempList.add(temp1);
+                
+            }
+            //save tempList to availableRooms
+            this.setAvailableRooms(tempList);
+            rs.close();
+            
+            
+            System.out.println("Available Rooms: ");
+            /*
+            for (Integer list : tempList) {
+                System.out.println("Room " + list);
+            }*/
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(BookRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }
-    
-    public void bookRoom(String roomNum){
-        
-        LinkedList<String> tempList = this.getRoom();
-        
-        if (tempList.contains(roomNum)){
-            tempList.remove(tempList.indexOf(roomNum));
-        }
-        this.setRoom(tempList);
-    }
-    
-    public void saveBooking(){
-        LinkedHashMap <String, LinkedList<String>> tempMap = this.getBookedDates();
-        
-        tempMap.put(this.getDate(), this.getRoom());
-        
-        this.setBookedDates(tempMap);
-    }
 
+    }
+    //book room method to updated the database room availability
+    public void bookRoom(int room) {
+        String table = this.getDate();
+        
+        String bookRoom = "UPDATE \"d" + table + "\""
+                +"SET AVAILABLE = 'NO'"
+                +"WHERE ROOMNO = "+ room;
+        
+        try {
+            this.statement.executeUpdate(bookRoom);
+            //close connection
+            this.statement.close();
+            db.closeConnections();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookRoom.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * @return the date
      */
@@ -65,41 +97,21 @@ public class BookRoom{
     }
 
     /**
-     * @param date the date to set
+     * @return the availableRooms
      */
-    public void setDate(String date) {
-        this.date = date;
+    public LinkedList<Integer> getAvailableRooms() {
+        return availableRooms;
     }
 
     /**
-     * @return the room
+     * @param availableRooms the availableRooms to set
      */
-    public LinkedList <String> getRoom() {
-        return room;
+    public void setAvailableRooms(LinkedList<Integer> availableRooms) {
+        this.availableRooms = availableRooms;
     }
 
-    /**
-     * @param room the room to set
-     */
-    public void setRoom(LinkedList <String> room) {
-        this.room = room;
-    }
 
-    /**
-     * @return the bookedDates
-     */
-    public LinkedHashMap <String, LinkedList<String>> getBookedDates() {
-        return bookedDates;
-    }
 
-    /**
-     * @param bookedDates the bookedDates to set
-     */
-    public void setBookedDates(LinkedHashMap <String, LinkedList<String>> bookedDates) {
-        this.bookedDates = bookedDates;
-    }
-    
-    
-    
-    
+
+
 }

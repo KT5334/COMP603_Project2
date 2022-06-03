@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +30,10 @@ public class Booking {
     private String bookingRef;
     private String roomNo;
     private Guest guest;
+    
+    HotelDB db;
+    Statement statement;
+    Connection conn;
     
     public Booking(String date, String room, Guest guest){
         this.date = date;
