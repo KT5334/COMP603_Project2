@@ -22,7 +22,7 @@ public class DateValidator {
         public boolean isValid(String input) {
         
         String date = input;
-        DateFormat dFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dFormat = new SimpleDateFormat("dd-MM-yyyy");
         dFormat.setLenient(false);
         
         try{

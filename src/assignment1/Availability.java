@@ -8,11 +8,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -36,7 +35,18 @@ public class Availability {
     private LinkedList <String> room;
     private LinkedHashMap <String, LinkedList<String>> bookedDates;
     
+    HotelDB db;
+    Statement statement;
+    Connection conn;
+    
     public Availability (String date){
+        db = new HotelDB();
+        conn = db.getConnection();
+        try{
+            statement = conn.createStatement();
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
         
         this.date = date;
         this.room = checkAvailability(date);

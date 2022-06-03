@@ -82,9 +82,9 @@ public class Guest {
     public void setEmail(String email) {
         this.email = email;
     }
+    //adds guest info in database if email is valid
     public void createGuest(){
-        
-            
+   
         String table = "GUEST";
         
         //statement to insert email, last name and first name values in lower case to table
@@ -106,7 +106,7 @@ public class Guest {
         db.closeConnections();
         
     }
-    
+    //checks email if it already exist in the database return true if exists
     public boolean checkEmail(){
         boolean emailExist = false;
            
@@ -141,66 +141,6 @@ public class Guest {
         }
         return emailExist;
       }
-    
-    /*
-    //writes the guest information on file
-    public void createGuest(){
-        //Key for HashMap using the guest email. converts to lower case.
-        String key = this.getEmail().toLowerCase();
-        //value for HashMap using the guest name. converts to lower case.
-        String value = this.getlName().toLowerCase()+ ", "+ this.getfName().toLowerCase();
-        
-        //temporary HashMap
-        LinkedHashMap<String, String> guest = new LinkedHashMap();
-        
-        File file = new File("./resources/Guest.txt");
-        
-        BufferedReader rd = null;
-        PrintWriter wr =null;
-       
-        try {
-            
-            rd = new BufferedReader(new FileReader(file));
-            String line = null;
-            //reads the file line by line
-            while((line = rd.readLine()) != null){
-                //seperates the line with a dash
-                String str[] = line.split("-");
-                //saves the key and values pairs on file and puts it on the temporary HashMap
-                guest.put(str[0], str[1]);
-            }
-            
-            //checks if the Key(guest email) and value(guest name) already exists from the read file and writes an new line if it does not.
-            if(!(guest.containsKey(key) && guest.containsValue(value))){
-                //if the key and value pair does not exist in the HashMap save it on the HashMap
-                guest.put(key, value);
-                for(Map.Entry<String, String> entry : guest.entrySet()){
-                
-                wr = new PrintWriter( new BufferedWriter(new FileWriter(file, true)));
-                wr.write(entry.getKey() +"-" + entry.getValue());
-                wr.write("\n");
-                
-                
-                }
-            }
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Guest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Guest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if((rd != null) && (wr != null)){
-                try {
-                    rd.close();
-                    wr.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(Guest.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    
-    }*/
     
     @Override
     public String toString(){
