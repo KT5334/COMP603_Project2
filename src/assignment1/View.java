@@ -68,8 +68,15 @@ public class View extends JFrame implements ActionListener{
     private JPanel headerViewPanel = new JPanel();
     private JPanel viewBookingPanel = new JPanel();
     private JLabel viewLabel;
+    private JLabel referencePrompt;
+    private JTextField userReference;
     private JTextArea currentBookingArea;
     private JScrollPane vBookingScroll;
+    private JButton submitRef;
+    
+    //Print Booking Variables
+    private JPanel printBookingPanel = new JPanel();
+    private JLabel bookingDisplayPrompt;
     
     //FAQ Variables
     private JPanel headerFaqPanel = new JPanel();
@@ -236,9 +243,11 @@ public class View extends JFrame implements ActionListener{
         this.submitBookDate = new JButton ("Check Availability");
         submitBookDate.addActionListener(this);
         
-        bookPanel.add(this.dateOfStay);
-        bookPanel.add(this.userDateOfStay);
-        bookPanel.add(this.submitBookDate);
+        bookDatePanel.add(this.dateOfStay);
+        bookDatePanel.add(this.userDateOfStay);
+        bookDatePanel.add(this.submitBookDate);
+        bookDatePanel.setBackground(Color.WHITE);
+        this.add(bookDatePanel, BorderLayout.CENTER);
         
         //South Panel - Exit and Home button
         this.add(southPanel, BorderLayout.SOUTH);
@@ -261,14 +270,24 @@ public class View extends JFrame implements ActionListener{
         this.add(headerViewPanel, BorderLayout.NORTH); 
         
         //View Booking Panel
-        this.currentBookingArea = new JTextArea();
+        this.referencePrompt = new JLabel("To check you booking, please enter your booking reference:");
+        this.userReference = new JTextField(15);
+        
+        this.submitRef = new JButton ("Submit");
+        submitRef.addActionListener(this);
+        
+        
+    /**    this.currentBookingArea = new JTextArea();
         currentBookingArea.setBounds(1000,1000, 1360,580);
         currentBookingArea.setEditable(false);
         
         this.vBookingScroll = new JScrollPane(currentBookingArea);  
-        vBookingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+        vBookingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); **/
         
-        viewBookingPanel.add(vBookingScroll);
+    //    viewBookingPanel.add(vBookingScroll);
+        viewBookingPanel.add(this.referencePrompt);
+        viewBookingPanel.add(this.userReference);
+        viewBookingPanel.add(this.submitRef);
         viewBookingPanel.setBackground(Color.WHITE);
         this.add(viewBookingPanel, BorderLayout.CENTER);
         
@@ -278,6 +297,27 @@ public class View extends JFrame implements ActionListener{
         this.revalidate();
         this.repaint();
     }
+    
+    public void getBooking(){
+        this.getContentPane().removeAll();
+        
+        //View Booking Header
+        this.add(headerViewPanel, BorderLayout.NORTH); 
+        
+        //Print Booking
+        this.bookingDisplayPrompt = new JLabel("Here is your booking:");
+        
+        printBookingPanel.setBackground(Color.WHITE);
+        printBookingPanel.add(bookingDisplayPrompt);
+        this.add(printBookingPanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
+    }
+            
     
     public void viewFaq(){
         this.getContentPane().removeAll();
@@ -318,15 +358,13 @@ public class View extends JFrame implements ActionListener{
         {
             System.exit(0);  
         }
-        else if(e.getSource() == this.faqButton)
+        else if(e.getSource() == this.bookButton)
         {
-            this.viewFaq();
-        }
-        else if(e.getSource() == this.viewButton)
-        {
-            this.viewBooking();
+            this.createBooking();
+            //submit button needs to work
             if(e.getSource() == this.submitUserDets)
             {
+                //needs to check date availability
                 this.checkDate();
                     if(e.getSource() == this.submitBookDate)
                     {
@@ -334,12 +372,24 @@ public class View extends JFrame implements ActionListener{
                     }
             }
         }
-        else if(e.getSource() == this.bookButton)
+        else if(e.getSource() == this.viewButton)
         {
-            this.createBooking();
-        }     
+            this.viewBooking();
+            //needs to check user input
+        }
+        else if(e.getSource() == this.submitRef)
+        {
+            //need to print booking
+            this.getBooking();
+        }
+        else if(e.getSource() == this.faqButton)
+        {
+            //need to print booking
+            this.viewFaq();
+        }        
         revalidate();
         repaint();   
-    }
+    } 
+    
 
 }

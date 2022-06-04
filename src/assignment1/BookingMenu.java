@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @author Group 83
  */
 
- * public class BookingMenu extends Menu {
+ public class BookingMenu extends Menu {
 
     Scanner scan = new Scanner(System.in);
 
@@ -32,8 +32,7 @@ import java.util.Scanner;
         System.out.println("Please enter the following to create a booking:");
         System.out.println("Your first name?");
         String fName = scan.nextLine();
-        System.out.println("Your 
-        * last name?");
+        System.out.println("Your last name?");
         String lName = scan.nextLine();
         System.out.println("Your email?");
         String email = scan.nextLine();
