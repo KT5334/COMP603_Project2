@@ -64,6 +64,21 @@ public class View extends JFrame implements ActionListener{
     private JTextField userDateOfStay;
     private JButton submitBookDate;
     
+    //Room Variables
+    private JPanel roomPanel = new JPanel();
+    private JLabel roomPrompt;
+    private JTextField userRoom;
+    private JButton submitRoom;
+    
+    //Booking Confirmation Variables
+    private JPanel confirmationPanel = new JPanel();
+    private JLabel bookingConfirmation;
+    private JButton confirmBooking;
+    
+    //Reference Number Variables
+    private JPanel refPanel = new JPanel();
+    private JLabel showRef;
+            
     //View Booking Variables
     private JPanel headerViewPanel = new JPanel();
     private JPanel viewBookingPanel = new JPanel();
@@ -201,11 +216,15 @@ public class View extends JFrame implements ActionListener{
         
         //Booking Panel - Users prompt for details
         this.bookingPrompt = new JLabel("Please enter the following to create a booking:");
+        bookingPrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
         this.fName = new JLabel("First name:");
+        fName.setFont(new Font("Calibri", Font.PLAIN, 20));
         this.userFName = new JTextField(20);
         this.lName = new JLabel("Last name:");
+        lName.setFont(new Font("Calibri", Font.PLAIN, 20));
         this.userLName = new JTextField(20);
         this.email = new JLabel("Email:");
+        email.setFont(new Font("Calibri", Font.PLAIN, 20));
         this.userEmail = new JTextField(30);
 
         this.submitUserDets = new JButton ("Submit");
@@ -239,6 +258,7 @@ public class View extends JFrame implements ActionListener{
         
         //Center Panel
         this.dateOfStay = new JLabel("Date of stay: (dd/mm/yyyy)");
+        dateOfStay.setFont(new Font("Calibri", Font.PLAIN, 20));
         this.userDateOfStay = new JTextField(8);
         this.submitBookDate = new JButton ("Check Availability");
         submitBookDate.addActionListener(this);
@@ -248,6 +268,74 @@ public class View extends JFrame implements ActionListener{
         bookDatePanel.add(this.submitBookDate);
         bookDatePanel.setBackground(Color.WHITE);
         this.add(bookDatePanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    public void selectRoom(){
+        //Heading
+        this.getContentPane().removeAll();
+        this.add(headerBookPanel, BorderLayout.NORTH); 
+        
+        //Center Panel
+        this.roomPrompt = new JLabel("Select one of the rooms:");
+        roomPrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.userRoom = new JTextField(2);
+        this.submitRoom = new JButton ("Submit");
+        submitRoom.addActionListener(this);
+        
+        roomPanel.add(this.roomPrompt);
+        roomPanel.add(this.userRoom);
+        roomPanel.add(this.submitRoom);
+        roomPanel.setBackground(Color.WHITE);
+        this.add(roomPanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    public void confirmBooking(){
+        //Heading
+        this.getContentPane().removeAll();
+        this.add(headerBookPanel, BorderLayout.NORTH); 
+        
+        //Center Panel
+        this.bookingConfirmation = new JLabel("Here is your booking details, to confirm press book.");
+        bookingConfirmation.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.confirmBooking = new JButton ("Book");
+        confirmBooking.addActionListener(this);
+        
+        confirmationPanel.add(this.bookingConfirmation);
+        confirmationPanel.add(this.confirmBooking);
+        confirmationPanel.setBackground(Color.WHITE);
+        this.add(confirmationPanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    public void displayReference(){
+        //Heading
+        this.getContentPane().removeAll();
+        this.add(headerBookPanel, BorderLayout.NORTH); 
+        
+        //Center Panel
+        this.showRef = new JLabel("Confirmed! Thank you for your booking. Here is your booking reference number:");
+        showRef.setFont(new Font("Calibri", Font.PLAIN, 20));
+
+        refPanel.add(this.showRef);
+        refPanel.setBackground(Color.WHITE);
+        this.add(refPanel, BorderLayout.CENTER);
         
         //South Panel - Exit and Home button
         this.add(southPanel, BorderLayout.SOUTH);
@@ -271,6 +359,7 @@ public class View extends JFrame implements ActionListener{
         
         //View Booking Panel
         this.referencePrompt = new JLabel("To check you booking, please enter your booking reference:");
+        referencePrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
         this.userReference = new JTextField(15);
         
         this.submitRef = new JButton ("Submit");
@@ -306,6 +395,7 @@ public class View extends JFrame implements ActionListener{
         
         //Print Booking
         this.bookingDisplayPrompt = new JLabel("Here is your booking:");
+        bookingDisplayPrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
         
         printBookingPanel.setBackground(Color.WHITE);
         printBookingPanel.add(bookingDisplayPrompt);
@@ -360,22 +450,32 @@ public class View extends JFrame implements ActionListener{
         }
         else if(e.getSource() == this.bookButton)
         {
-            this.createBooking();
-            //submit button needs to work
-            if(e.getSource() == this.submitUserDets)
-            {
-                //needs to check date availability
-                this.checkDate();
-                    if(e.getSource() == this.submitBookDate)
-                    {
-                        
-                    }
-            }
+            this.createBooking();   
+        }
+        if(e.getSource() == this.submitUserDets)
+        {
+            this.checkDate(); 
+            //check date format and validity
+            //needs to check date availability
+            //refresh textfield to try again   
+        }
+        else if(e.getSource() == this.submitBookDate)
+        {
+            this.selectRoom();            
+        }
+        else if(e.getSource() == this.submitRoom)
+        {
+            this.confirmBooking();            
+        }
+        else if(e.getSource() == this.confirmBooking)
+        {
+            this.displayReference();           
         }
         else if(e.getSource() == this.viewButton)
         {
             this.viewBooking();
-            //needs to check user input
+            //needs to validate user input
+            //refresh textfield to try again  
         }
         else if(e.getSource() == this.submitRef)
         {
@@ -384,7 +484,7 @@ public class View extends JFrame implements ActionListener{
         }
         else if(e.getSource() == this.faqButton)
         {
-            //need to print booking
+            //need to print faq
             this.viewFaq();
         }        
         revalidate();
