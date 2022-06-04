@@ -83,8 +83,9 @@ public class Guest {
     }
 
     //adds guest info in database if email is valid
-    public void createGuest() {
-
+    public HotelData createGuest() {
+        HotelData data = new HotelData();
+        
         String table = "GUEST";
 
         //statement to insert email, last name and first name values in lower case to table
@@ -99,12 +100,14 @@ public class Guest {
             } catch (SQLException ex) {
                 Logger.getLogger(Guest.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            data.emailFlag = true;
         } else {
             System.out.println("Email already in use");
+            data.emailFlag = false;
         }
 
         db.closeConnections();
+        return data;
 
     }
 

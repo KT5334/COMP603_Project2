@@ -38,7 +38,9 @@ public class BookRoom {
         this.date = date;
     }
     //checks the available rooms in the database
-    public void checkRoomAvailability() {
+    public HotelData checkRoomAvailability() {
+        
+        HotelData data = new HotelData();
         
         String table = this.getDate();
         
@@ -57,6 +59,7 @@ public class BookRoom {
             }
             //save tempList to availableRooms
             this.setAvailableRooms(tempList);
+            data.avRoom = tempList;
             rs.close();
             
             
@@ -69,6 +72,7 @@ public class BookRoom {
         } catch (SQLException ex) {
             Logger.getLogger(BookRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return data;
 
     }
     //book room method to updated the database room availability

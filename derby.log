@@ -1,14 +1,13 @@
-Sat Jun 04 16:22:41 NZST 2022 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Sat Jun 04 16:22:43 NZST 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0181-2cf3-7608-00004d625351 
-on database directory C:\Users\dorae\OneDrive\Desktop\Rob AUT\PDC - 2\P83_1088885_20101663\P83_1088885_20101663\Assignment1\HotelDB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Loaded from file:/C:/Users/dorae/OneDrive/Desktop/netbeans-12.0-bin/db-derby-10.14.2.0-bin/lib/derby.jar
+Sat Jun 04 19:29:45 NZST 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0181-2d9e-b9c3-00000e2f9778 
+on database directory C:\Users\dorae\OneDrive\Desktop\Rob AUT\PDC - 2\COMP603_Project2\HotelDB with class loader sun.misc.Launcher$AppClassLoader@1540e19d 
+Loaded from file:/C:/Users/dorae/OneDrive/Desktop/Rob%20AUT/PDC%20-%202/COMP603_Project2/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_301-b09
-user.dir=C:\Users\dorae\OneDrive\Desktop\netbeans-12.0-bin\db-derby-10.14.2.0-bin
+user.dir=C:\Users\dorae\OneDrive\Desktop\Rob AUT\PDC - 2\COMP603_Project2
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
-derby.system.home=C:\Users\dorae\OneDrive\Desktop\Rob AUT\PDC - 2\P83_1088885_20101663\P83_1088885_20101663\Assignment1
+derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

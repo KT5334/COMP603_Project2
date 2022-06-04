@@ -11,8 +11,8 @@ import java.util.Scanner;
  *
  * @author Group 83 
  */
-public class ViewBookingMenu extends Menu{
-    
+public class ViewBookingMenu{
+    /*
     //header and options prompt
     public ViewBookingMenu()
     {
@@ -56,6 +56,6 @@ Scanner scan = new Scanner(System.in);
         veiwBooking();
         checkInput();
         performAction();
-    }
+    }*/
     
 }
