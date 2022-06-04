@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 
  public class BookingMenu extends Menu {
-
+     /*
     Scanner scan = new Scanner(System.in);
 
     public char confirm;
@@ -120,6 +120,6 @@ import java.util.Scanner;
         creatingBooking();
         checkInput();
         performAction();
-    }
+    }*/
 
 }
