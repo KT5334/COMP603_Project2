@@ -82,7 +82,7 @@ public class View extends JFrame implements ActionListener{
     private JPanel refPanel = new JPanel();
     private JLabel showRef;
             
-    //View Booking Variables
+    //Manage Booking Variables
     private JPanel headerViewPanel = new JPanel();
     private JPanel viewBookingPanel = new JPanel();
     private JLabel viewLabel;
@@ -142,7 +142,7 @@ public class View extends JFrame implements ActionListener{
         headerHomePanel.setBackground(Color.LIGHT_GRAY);
         this.add(headerHomePanel, BorderLayout.NORTH); 
         
-        //Center panel
+        //prompt users to make a selection
         this.promptLabel = new JLabel("Please enter your selection on the left");
         promptLabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
         promptLabel.setForeground(Color.WHITE);
@@ -158,7 +158,7 @@ public class View extends JFrame implements ActionListener{
         bookButton.setForeground(Color.BLACK);
         bookButton.addActionListener(this);
         
-        this.viewButton = new JButton("View your booking");
+        this.viewButton = new JButton("Manage your booking");
         viewButton.setFont(new Font("Magneto", Font.PLAIN, 24));
         viewButton.setForeground(Color.BLACK);
         viewButton.addActionListener(this);
@@ -230,7 +230,7 @@ public class View extends JFrame implements ActionListener{
         this.add(headerBookPanel, BorderLayout.NORTH); 
 
         
-        //Booking Panel - Users prompt for details
+        //Booking Panel - Users prompt for contact details
         this.bookingPrompt = new JLabel("Please enter the following to create a booking:");
         bookingPrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
         
@@ -279,7 +279,7 @@ public class View extends JFrame implements ActionListener{
         this.getContentPane().removeAll();
         this.add(headerBookPanel, BorderLayout.NORTH); 
         
-        //Center Panel
+        //Asks users for  abooking date
         this.dateOfStay = new JLabel("Date of stay: (dd-mm-yyyy)");
         dateOfStay.setFont(new Font("Calibri", Font.PLAIN, 20));
         this.invlaidDate = new JLabel("Please keep entering until it is a valid date");
@@ -312,7 +312,7 @@ public class View extends JFrame implements ActionListener{
         this.getContentPane().removeAll();
         this.add(headerBookPanel, BorderLayout.NORTH); 
         
-        //Center Panel
+        //Asks users to selest room
         this.roomPrompt = new JLabel("Select one of the rooms:");
         roomPrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
         this.userRoom = new JComboBox();
@@ -344,7 +344,7 @@ public class View extends JFrame implements ActionListener{
         this.getContentPane().removeAll();
         this.add(headerBookPanel, BorderLayout.NORTH); 
         
-        //Center Panel
+        //show booking details
         this.bookingConfirmation = new JLabel("Here is your booking details, to confirm press book.");
         bookingConfirmation.setFont(new Font("Calibri", Font.PLAIN, 20));
         
@@ -372,7 +372,7 @@ public class View extends JFrame implements ActionListener{
         this.getContentPane().removeAll();
         this.add(headerBookPanel, BorderLayout.NORTH); 
         
-        //Center Panel
+        //Confirmation and shows ref
         this.showRef = new JLabel("Confirmed! Thank you for your booking. Here is your booking reference number:" +bkRef);
         showRef.setFont(new Font("Calibri", Font.PLAIN, 20));
 
@@ -387,7 +387,7 @@ public class View extends JFrame implements ActionListener{
         this.repaint();
     }
     
-    public void viewBooking(){
+    public void manageBooking(){
         
         this.getContentPane().removeAll();
         
@@ -401,7 +401,7 @@ public class View extends JFrame implements ActionListener{
         this.add(headerViewPanel, BorderLayout.NORTH); 
         
         
-        //View Booking Panel
+        //Asks user to input ref
         this.referencePrompt = new JLabel("To check you booking, please enter your booking reference:");
         referencePrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
         this.userReference = new JTextField(15);
@@ -429,7 +429,7 @@ public class View extends JFrame implements ActionListener{
         //View Booking Header
         this.add(headerViewPanel, BorderLayout.NORTH); 
         
-        //Print Booking
+        //Print Booking Details and ask user if they want to cancel
         this.bookingDisplayPrompt = new JLabel("Here is your booking: " + bkRef + " Name: " +firstN+" "+lastN+ " Room: " +rmNumber);
         bookingDisplayPrompt.setFont(new Font("Calibri", Font.BOLD, 20));
         
@@ -456,7 +456,7 @@ public class View extends JFrame implements ActionListener{
         //View Booking Header
         this.add(headerViewPanel, BorderLayout.NORTH); 
         
-        //Print Booking
+        //Confirmation of Cancellled Booking
         this.cancelConfirmed = new JLabel("Your booking has been cancelled!");
         cancelConfirmed.setFont(new Font("Calibri", Font.PLAIN, 20));
         
@@ -485,11 +485,9 @@ public class View extends JFrame implements ActionListener{
         headerFaqPanel.setBackground(Color.LIGHT_GRAY);
         this.add(headerFaqPanel, BorderLayout.NORTH); 
         
-        //FAQ Center Panel
+        //Display FAQ
         this.faqArea = new JTextArea(faq.printFaq());
         faqArea.setFont(new Font("Calibri", Font.PLAIN, 20));
-    //    faqArea.setBounds(10,70, 1360,550);
-        
         
         faqPanel.add(faqArea);
         faqPanel.setBackground(Color.WHITE);
@@ -506,11 +504,13 @@ public class View extends JFrame implements ActionListener{
 
    @Override
     public void actionPerformed(ActionEvent e) {
+        //To return to the Home page
         if(e.getSource() == this.homeButton)
         {
             this.dispose();
             new View();
         }
+        //Exits the program
         else if(e.getSource() == this.exitButton)
         {
             System.exit(0);  
@@ -519,6 +519,7 @@ public class View extends JFrame implements ActionListener{
         {
             this.createBooking();   
         }
+        //Go to create a Booking page 
         if(e.getSource() == this.submitUserDets)
         {
             firstN = userFName.getText();
@@ -528,10 +529,11 @@ public class View extends JFrame implements ActionListener{
             guest.createGuest();
             
             this.checkDate(); 
-            //needs to check date availability
         }
+        //Users to enter date
         else if(e.getSource() == this.submitBookDate)
         {
+            //Validates the date users have entered
             custDate = userDateOfStay.getText();
             DateValidator validator = new DateValidator();
             if ((validator.isValid(custDate))) {
@@ -539,13 +541,14 @@ public class View extends JFrame implements ActionListener{
                 dateDB.checkDate();
                 this.selectRoom();    
             } 
-     
         }
+        //Users to select room
         else if(e.getSource() == this.submitRoom)
         {
             rmNumber = (Integer)userRoom.getSelectedItem();
             this.confirmBooking();            
         }
+        //Displays booking details
         else if(e.getSource() == this.confirmBooking)
         {
             Guest guestBk = new Guest(firstN, lastN, custEmail);
@@ -556,15 +559,15 @@ public class View extends JFrame implements ActionListener{
             connBk.createBooking();
             bkRef = connBk.getBookingRef();
             
+            //Shows the reference number
             this.displayReference(); 
-            
         }
+        //Goes to the Manage Booking page
         else if(e.getSource() == this.viewButton)
         {
-  
-                this.viewBooking();   
-            
+                this.manageBooking();   
         }
+        //View Booking details and option to cancel
         else if(e.getSource() == this.submitRef)
         {
             bkRef = userReference.getText();
@@ -580,6 +583,7 @@ public class View extends JFrame implements ActionListener{
             } 
 
         }
+        //Confirms cancellation 
         else if(e.getSource() == this.cancelButton)
         {
             ManageBooking mgntBk = new ManageBooking();
