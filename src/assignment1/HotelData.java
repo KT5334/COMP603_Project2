@@ -19,6 +19,8 @@ public class HotelData {
     String fName = "";
     String lName = "";
     String email = "";
+    String ref = "";
+    int room = 0;
     LinkedList<Integer> avRoom= new LinkedList<Integer>();
     
 }

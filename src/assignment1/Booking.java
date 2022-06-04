@@ -76,7 +76,8 @@ public class Booking {
         return guest;
     }
     //creates a booking table if it does not exist and creates and entry with the booking details
-    public void createBooking() {
+    public HotelData createBooking() {
+        HotelData data = new HotelData();
         String table = "BOOKING";
 
         try {
@@ -107,7 +108,13 @@ public class Booking {
                     + this.getGuest().getEmail() + "', 'd"
                     + this.getDate()+ "', "
                     + this.getRoom() + ")";
-
+            data.ref = this.getBookingRef();
+            data.fName = this.getGuest().getfName();
+            data.lName = this.getGuest().getlName();
+            data.email = this.getGuest().getEmail();
+            data.email = this.getDate();
+            data.room = this.getRoom();
+           
             this.statement.executeUpdate(sqlInsert);
             this.statement.close();
             resultSet.close();
@@ -118,6 +125,7 @@ public class Booking {
         }
 
         db.closeConnections();
+        return data;
     }
 
 }
