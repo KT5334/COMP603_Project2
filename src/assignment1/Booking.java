@@ -4,12 +4,11 @@
  * and open the template in the editor.
  */
 package assignment1;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,26 +18,33 @@ import java.util.logging.Logger;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Group 83
  */
 public class Booking {
-    
+
     private String date;
     private String bookingRef;
-    private String roomNo;
+    private int roomNo;
     private Guest guest;
-    
+
     HotelDB db;
     Statement statement;
     Connection conn;
-    
-    public Booking(String date, String room, Guest guest){
+
+    public Booking(String date, int room, Guest guest) {
+        db = new HotelDB();
+        conn = db.getConnection();
+        try {
+            statement = conn.createStatement();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         this.date = date;
         this.guest = guest;
-        this.bookingRef = this.date + this.guest.getlName();
+        //booking ref with user info
+        this.bookingRef = this.guest.getlName() + this.date+"rm"+room;
         this.roomNo = room;
     }
 
@@ -50,23 +56,16 @@ public class Booking {
     }
 
     /**
-     * @param date the date to set
-     */
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    /**
      * @return the bookingRef
      */
     public String getBookingRef() {
         return bookingRef;
     }
 
-     /**
+    /**
      * @return the roomNo Object
      */
-    public String getRoom(){
+    public int getRoom() {
         return roomNo;
     }
 
@@ -76,35 +75,49 @@ public class Booking {
     public Guest getGuest() {
         return guest;
     }
+    //creates a booking table if it does not exist and creates and entry with the booking details
+    public void createBooking() {
+        String table = "BOOKING";
 
-    /**
-     * @param guest the guest to set
-     */
-    public void setGuest(Guest guest) {
-        this.guest = guest;
-    }
-    //saves a record of the booking by writting on file
-    public void saveRecord(){
-        PrintWriter pw = null;
         try {
-            File file = new File("./resources/Bookings.txt");
-            pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
-            //writes a new line
-            pw.write("\n");
-            //appends the toString of class on file
-            pw.write(this.toString());
+            //checks if table exist and if not create it
+            DatabaseMetaData databaseMetadata = db.getConnection().getMetaData();
+            ResultSet resultSet = databaseMetadata.getTables(null, null, table, null);
+
+            if (resultSet.next()) {
+                System.out.println("Date table Exist");
+
+            } else {
+                String create = "CREATE TABLE " + table + " (REF VARCHAR (35),"
+                        + "FIRSTNAME VARCHAR (20),"
+                        + "LASTNAME VARCHAR (30),"
+                        + "EMAIL VARCHAR(50),"
+                        + "BOOKEDDATE VARCHAR(15),"
+                        + "ROOMNO INT, PRIMARY KEY (REF))";
+
+                this.statement.executeUpdate(create);
+                System.out.println("Booking Table Created");
+            }
             
-        } catch (IOException ex) {
-            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            pw.close();
+            //inserts value into table
+            String sqlInsert = "insert into " + table + " values('"
+                    + this.getBookingRef() + "', '"
+                    + this.getGuest().getfName() + "', '"
+                    + this.getGuest().getlName() + "', '"
+                    + this.getGuest().getEmail() + "', 'd"
+                    + this.getDate()+ "', "
+                    + this.getRoom() + ")";
+
+            this.statement.executeUpdate(sqlInsert);
+            this.statement.close();
+            resultSet.close();
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Guest.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        db.closeConnections();
     }
-    
-    @Override
-    public String toString(){
-        return this.getBookingRef()+ "~ Date: " + this.getDate()+ " Guest: " +this.guest+ " Room Number: " + this.getRoom();
-    }
-    
-    
+
 }
