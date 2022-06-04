@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @author Group 83
  */
 
- public class BookingMenu extends Menu {
+ public class BookingMenu {
      /*
     Scanner scan = new Scanner(System.in);
 

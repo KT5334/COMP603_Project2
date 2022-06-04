@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 
 
-public class ViewBookingMenu extends Menu{
+public class ViewBookingMenu{
     /*
     //header and options prompt
     public ViewBookingMenu()
