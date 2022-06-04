@@ -29,7 +29,7 @@ Scanner scan = new Scanner(System.in);
         System.out.println("To check you booking, please enter your booking reference:");
         String ref = scan.nextLine();
 
-        ViewBooking view = new ViewBooking(ref);
+        ViewBooking view = new ViewBooking(ref); 
         
         //checks the user input if it is a valid reference
         while (!(view.validRef())) {
@@ -45,7 +45,7 @@ Scanner scan = new Scanner(System.in);
         //print booking info
         view.printBooking();
 
-        System.out.println("\nEnter 1 to go back to main menu or 0 to exit");
+      System.out.println("\nEnter 1 to go back to main menu or 0 to exit");
     }
     
 
@@ -57,5 +57,6 @@ Scanner scan = new Scanner(System.in);
         checkInput();
         performAction();
     }*/
-    
+
 }
+

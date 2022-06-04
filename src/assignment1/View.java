@@ -16,39 +16,88 @@ import javax.swing.border.EmptyBorder;
  *
  * @author dorae
  */
-public class View extends JFrame implements ActionListener{
 
-    private JPanel headerPanel = new JPanel();
-    private BGPanel homePanel = new BGPanel();
-    private JPanel optionsPanel = new JPanel();
-    private JPanel southPanel = new JPanel();
+
+public class View extends JFrame implements ActionListener{
     
-    private JPanel headerBookPanel = new JPanel();
-    private JPanel bookPanel = new JPanel();
-    
-    private JPanel headerViewPanel = new JPanel();
-    private JPanel viewBookingPanel = new JPanel();
-    
-    private JPanel headerFaqPanel = new JPanel();
-    private JPanel faqPanel = new JPanel(); 
-    
-    private JLabel heading;
+    Faq faq = new Faq();
+
+    //Home Header Variables
+    private JPanel headerHomePanel = new JPanel();
+    private JLabel homeHeading;
     private JLabel homeLabel;
     private JLabel aboutLabel;
-    private JLabel promptLabel;
-    private JLabel faqLabel;
-    private JLabel viewLabel;
-    private JLabel bookLabel;
     
-    private JButton homeButton;
+    //Home Center Panel Variables
+    private BGPanel homePanel = new BGPanel();
+    private JLabel promptLabel;
+    
+    //Home Options Variables
+    private JPanel optionsPanel = new JPanel();
     private JButton bookButton;
     private JButton viewButton;
     private JButton faqButton;
+    
+    //Home and Exit Variables
+    private JPanel southPanel = new JPanel();
+    private JButton homeButton;
     private JButton exitButton;
     
-    private JTextArea faqArea;
+    //Booking Variables
+    private JPanel headerBookPanel = new JPanel();
+    private JPanel bookPanel = new JPanel();
+    private JLabel bookLabel;
+    private JLabel bookDescription;
+    private JLabel bookPrice;
+    private JLabel bookingPrompt;
+    private JLabel fName; 
+    private JLabel lName;
+    private JLabel email; 
+    private JTextField userFName;
+    private JTextField userLName;
+    private JTextField userEmail;
+    private JButton submitUserDets;
+
+    //Date Variables
+    private JPanel bookDatePanel = new JPanel();
+    private JLabel dateOfStay;
+    private JTextField userDateOfStay;
+    private JButton submitBookDate;
+    
+    //Room Variables
+    private JPanel roomPanel = new JPanel();
+    private JLabel roomPrompt;
+    private JTextField userRoom;
+    private JButton submitRoom;
+    
+    //Booking Confirmation Variables
+    private JPanel confirmationPanel = new JPanel();
+    private JLabel bookingConfirmation;
+    private JButton confirmBooking;
+    
+    //Reference Number Variables
+    private JPanel refPanel = new JPanel();
+    private JLabel showRef;
+            
+    //View Booking Variables
+    private JPanel headerViewPanel = new JPanel();
+    private JPanel viewBookingPanel = new JPanel();
+    private JLabel viewLabel;
+    private JLabel referencePrompt;
+    private JTextField userReference;
     private JTextArea currentBookingArea;
     private JScrollPane vBookingScroll;
+    private JButton submitRef;
+    
+    //Print Booking Variables
+    private JPanel printBookingPanel = new JPanel();
+    private JLabel bookingDisplayPrompt;
+    
+    //FAQ Variables
+    private JPanel headerFaqPanel = new JPanel();
+    private JPanel faqPanel = new JPanel(); 
+    private JLabel faqLabel;
+    private JLabel faqArea;
     
     
     //Main Page
@@ -60,22 +109,22 @@ public class View extends JFrame implements ActionListener{
         this.setLocationRelativeTo(null);
         
         //Header Panel
-        this.heading = new JLabel("Welcome to Mini Motel!");
-        heading.setFont(new Font("Magneto", Font.BOLD, 40));
-        heading.setForeground(Color.BLACK);
+        this.homeHeading = new JLabel("Welcome to Mini Motel!");
+        homeHeading.setFont(new Font("Magneto", Font.BOLD, 40));
+        homeHeading.setForeground(Color.BLACK);
         
         this.aboutLabel = new JLabel("Your number 1 overnight place of rest for the solo traveller!");
         aboutLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
         aboutLabel.setLocation(400, 400);
         aboutLabel.setForeground(Color.RED);
         
-        BoxLayout boxLayout = new BoxLayout(headerPanel, BoxLayout.Y_AXIS);
-        headerPanel.setLayout(boxLayout);
-        headerPanel.setBorder(new EmptyBorder(new Insets(40, 500, 30, 10)));
-        headerPanel.add(heading);
-        headerPanel.add(this.aboutLabel);;
-        headerPanel.setBackground(Color.LIGHT_GRAY);
-        this.add(headerPanel, BorderLayout.NORTH); 
+        BoxLayout boxLayout = new BoxLayout(headerHomePanel, BoxLayout.Y_AXIS);
+        headerHomePanel.setLayout(boxLayout);
+        headerHomePanel.setBorder(new EmptyBorder(new Insets(40, 500, 30, 10)));
+        headerHomePanel.add(homeHeading);
+        headerHomePanel.add(this.aboutLabel);;
+        headerHomePanel.setBackground(Color.LIGHT_GRAY);
+        this.add(headerHomePanel, BorderLayout.NORTH); 
         
         //Center panel
         this.promptLabel = new JLabel("Please enter your selection on the left");
@@ -144,17 +193,55 @@ public class View extends JFrame implements ActionListener{
         
         //Booking Header
         this.bookLabel = new JLabel("Create a Booking");
-        bookLabel.setFont(new Font("Magneto", Font.BOLD, 30));
+        bookLabel.setFont(new Font("Magneto", Font.BOLD, 40));
         bookLabel.setForeground(Color.RED);  
-
-        headerBookPanel.add(bookLabel);
+        
+        this.bookDescription = new JLabel("Please note, one single room per booking for an overnight stay only");
+        bookDescription.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        bookDescription.setForeground(Color.BLACK);
+        
+        this.bookPrice = new JLabel("Price: $89 a stay");
+        bookPrice.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        bookPrice.setForeground(Color.BLACK);
+        
+        BoxLayout boxLayout2 = new BoxLayout(headerBookPanel, BoxLayout.Y_AXIS);
+        headerBookPanel.setLayout(boxLayout2);
+        headerBookPanel.setBorder(new EmptyBorder(new Insets(20, 400, 30, 10)));
+        headerBookPanel.add(this.bookLabel);
+        headerBookPanel.add(this.bookDescription);
+        headerBookPanel.add(this.bookPrice);
         headerBookPanel.setBackground(Color.LIGHT_GRAY);
         this.add(headerBookPanel, BorderLayout.NORTH); 
+
         
-        //Booking Center Panel
+        //Booking Panel - Users prompt for details
+        this.bookingPrompt = new JLabel("Please enter the following to create a booking:");
+        bookingPrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.fName = new JLabel("First name:");
+        fName.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.userFName = new JTextField(20);
+        this.lName = new JLabel("Last name:");
+        lName.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.userLName = new JTextField(20);
+        this.email = new JLabel("Email:");
+        email.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.userEmail = new JTextField(30);
+
+        this.submitUserDets = new JButton ("Submit");
+        submitUserDets.addActionListener(this);
+        
+        bookPanel.add(this.bookingPrompt);
+        bookPanel.add(this.fName);
+        bookPanel.add(this.userFName);
+        bookPanel.add(this.lName);
+        bookPanel.add(this.userLName);
+        bookPanel.add(this.email);
+        bookPanel.add(this.userEmail);
+        bookPanel.add(this.submitUserDets);
         bookPanel.setBackground(Color.WHITE);
         this.add(bookPanel, BorderLayout.CENTER);
-        
+
+
         //South Panel - Exit and Home button
         this.add(southPanel, BorderLayout.SOUTH);
         
@@ -163,13 +250,107 @@ public class View extends JFrame implements ActionListener{
           
     }
     
+    //Check date availability
+    public void checkDate(){
+        //Heading
+        this.getContentPane().removeAll();
+        this.add(headerBookPanel, BorderLayout.NORTH); 
+        
+        //Center Panel
+        this.dateOfStay = new JLabel("Date of stay: (dd/mm/yyyy)");
+        dateOfStay.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.userDateOfStay = new JTextField(8);
+        this.submitBookDate = new JButton ("Check Availability");
+        submitBookDate.addActionListener(this);
+        
+        bookDatePanel.add(this.dateOfStay);
+        bookDatePanel.add(this.userDateOfStay);
+        bookDatePanel.add(this.submitBookDate);
+        bookDatePanel.setBackground(Color.WHITE);
+        this.add(bookDatePanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    public void selectRoom(){
+        //Heading
+        this.getContentPane().removeAll();
+        this.add(headerBookPanel, BorderLayout.NORTH); 
+        
+        //Center Panel
+        this.roomPrompt = new JLabel("Select one of the rooms:");
+        roomPrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.userRoom = new JTextField(2);
+        this.submitRoom = new JButton ("Submit");
+        submitRoom.addActionListener(this);
+        
+        roomPanel.add(this.roomPrompt);
+        roomPanel.add(this.userRoom);
+        roomPanel.add(this.submitRoom);
+        roomPanel.setBackground(Color.WHITE);
+        this.add(roomPanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    public void confirmBooking(){
+        //Heading
+        this.getContentPane().removeAll();
+        this.add(headerBookPanel, BorderLayout.NORTH); 
+        
+        //Center Panel
+        this.bookingConfirmation = new JLabel("Here is your booking details, to confirm press book.");
+        bookingConfirmation.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.confirmBooking = new JButton ("Book");
+        confirmBooking.addActionListener(this);
+        
+        confirmationPanel.add(this.bookingConfirmation);
+        confirmationPanel.add(this.confirmBooking);
+        confirmationPanel.setBackground(Color.WHITE);
+        this.add(confirmationPanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    public void displayReference(){
+        //Heading
+        this.getContentPane().removeAll();
+        this.add(headerBookPanel, BorderLayout.NORTH); 
+        
+        //Center Panel
+        this.showRef = new JLabel("Confirmed! Thank you for your booking. Here is your booking reference number:");
+        showRef.setFont(new Font("Calibri", Font.PLAIN, 20));
+
+        refPanel.add(this.showRef);
+        refPanel.setBackground(Color.WHITE);
+        this.add(refPanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
     public void viewBooking(){
         
         this.getContentPane().removeAll();
         
         //View Booking Header
         this.viewLabel = new JLabel("View Booking");
-        viewLabel.setFont(new Font("Magneto", Font.BOLD, 30));
+        viewLabel.setFont(new Font("Magneto", Font.BOLD, 40));
         viewLabel.setForeground(Color.RED);
         
         headerViewPanel.add(viewLabel);
@@ -177,14 +358,25 @@ public class View extends JFrame implements ActionListener{
         this.add(headerViewPanel, BorderLayout.NORTH); 
         
         //View Booking Panel
-        this.currentBookingArea = new JTextArea();
+        this.referencePrompt = new JLabel("To check you booking, please enter your booking reference:");
+        referencePrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
+        this.userReference = new JTextField(15);
+        
+        this.submitRef = new JButton ("Submit");
+        submitRef.addActionListener(this);
+        
+        
+    /**    this.currentBookingArea = new JTextArea();
         currentBookingArea.setBounds(1000,1000, 1360,580);
         currentBookingArea.setEditable(false);
         
         this.vBookingScroll = new JScrollPane(currentBookingArea);  
-        vBookingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+        vBookingScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); **/
         
-        viewBookingPanel.add(vBookingScroll);
+    //    viewBookingPanel.add(vBookingScroll);
+        viewBookingPanel.add(this.referencePrompt);
+        viewBookingPanel.add(this.userReference);
+        viewBookingPanel.add(this.submitRef);
         viewBookingPanel.setBackground(Color.WHITE);
         this.add(viewBookingPanel, BorderLayout.CENTER);
         
@@ -195,12 +387,34 @@ public class View extends JFrame implements ActionListener{
         this.repaint();
     }
     
+    public void getBooking(){
+        this.getContentPane().removeAll();
+        
+        //View Booking Header
+        this.add(headerViewPanel, BorderLayout.NORTH); 
+        
+        //Print Booking
+        this.bookingDisplayPrompt = new JLabel("Here is your booking:");
+        bookingDisplayPrompt.setFont(new Font("Calibri", Font.PLAIN, 20));
+        
+        printBookingPanel.setBackground(Color.WHITE);
+        printBookingPanel.add(bookingDisplayPrompt);
+        this.add(printBookingPanel, BorderLayout.CENTER);
+        
+        //South Panel - Exit and Home button
+        this.add(southPanel, BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
+    }
+            
+    
     public void viewFaq(){
         this.getContentPane().removeAll();
 
         //FAQ Header
         this.faqLabel = new JLabel("Frequently Asked Questions");
-        faqLabel.setFont(new Font("Magneto", Font.BOLD, 30));
+        faqLabel.setFont(new Font("Magneto", Font.BOLD, 40));
         faqLabel.setForeground(Color.RED);
         
         headerFaqPanel.add(faqLabel);
@@ -208,10 +422,8 @@ public class View extends JFrame implements ActionListener{
         this.add(headerFaqPanel, BorderLayout.NORTH); 
         
         //FAQ Center Panel
-        this.faqArea = new JTextArea();
+        this.faqArea = new JLabel("");
         faqArea.setBounds(10,70, 1360,550);
-        faqArea.setEditable(false);
-        
         faqPanel.add(faqArea);
         faqPanel.setBackground(Color.WHITE);
         this.add(faqPanel, BorderLayout.CENTER);
@@ -236,20 +448,48 @@ public class View extends JFrame implements ActionListener{
         {
             System.exit(0);  
         }
-        else if(e.getSource() == this.faqButton)
+        else if(e.getSource() == this.bookButton)
         {
-            this.viewFaq();
+            this.createBooking();   
+        }
+        if(e.getSource() == this.submitUserDets)
+        {
+            this.checkDate(); 
+            //check date format and validity
+            //needs to check date availability
+            //refresh textfield to try again   
+        }
+        else if(e.getSource() == this.submitBookDate)
+        {
+            this.selectRoom();            
+        }
+        else if(e.getSource() == this.submitRoom)
+        {
+            this.confirmBooking();            
+        }
+        else if(e.getSource() == this.confirmBooking)
+        {
+            this.displayReference();           
         }
         else if(e.getSource() == this.viewButton)
         {
             this.viewBooking();
+            //needs to validate user input
+            //refresh textfield to try again  
         }
-        else if(e.getSource() == this.bookButton)
+        else if(e.getSource() == this.submitRef)
         {
-            this.createBooking();
-        }     
+            //need to print booking
+            this.getBooking();
+        }
+        else if(e.getSource() == this.faqButton)
+        {
+            //need to print faq
+            this.viewFaq();
+        }        
         revalidate();
         repaint();   
-    }
+    } 
+    
 
 }

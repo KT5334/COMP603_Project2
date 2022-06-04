@@ -11,6 +11,7 @@ import java.util.Scanner;
  *
  * @author Group 83
  */
+
 public class BookingMenu {
     /*
     Scanner scan = new Scanner(System.in);
