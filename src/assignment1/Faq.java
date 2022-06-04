@@ -20,15 +20,16 @@ import java.util.logging.Logger;
 public class Faq {
     
     //reads the FAQ file
-    public void printFaq(){
+    public String printFaq(){
 
+        String fq = "";
         BufferedReader br = null;
         try {
             // Initialize the BufferedReader, which is used to read contents from FAQ.txt.
             br = new BufferedReader(new FileReader("./resources/FAQ.txt"));
             String faq = null;
             while((faq = br.readLine()) != null){
-                System.out.println(faq);
+                fq = fq +faq+"\n";
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Faq.class.getName()).log(Level.SEVERE, null, ex);
@@ -41,7 +42,7 @@ public class Faq {
                 Logger.getLogger(Faq.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        return fq;
     }
 
     

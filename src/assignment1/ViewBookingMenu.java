@@ -11,8 +11,6 @@ import java.util.Scanner;
  *
  * @author Group 83 
  */
-
-
 public class ViewBookingMenu{
     /*
     //header and options prompt
@@ -59,5 +57,6 @@ Scanner scan = new Scanner(System.in);
         checkInput();
         performAction();
     }*/
-   
-} 
+
+}
+
