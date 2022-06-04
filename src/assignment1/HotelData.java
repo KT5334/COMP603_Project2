@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author dorae
+ * @author Group ID 83
  */
 public class HotelData {
     boolean validDate = false;

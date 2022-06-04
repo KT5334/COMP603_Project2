@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Project ID: 32
+ * @author Group ID 83
  */
 public class Faq {
     

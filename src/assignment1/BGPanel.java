@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author dorae
+ * @author Group ID 83
  */
 public class BGPanel extends JPanel {
         public Image image;

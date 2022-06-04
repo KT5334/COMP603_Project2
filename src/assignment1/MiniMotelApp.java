@@ -7,7 +7,7 @@ package assignment1;
 
 /**
  *
- * @author dorae
+ * @author Group ID 83
  */
 public class MiniMotelApp {
     
